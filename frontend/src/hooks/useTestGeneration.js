@@ -11,7 +11,6 @@ const useTestGeneration = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [testResults, setTestResults] = useState(null);
-  const [complexity, setComplexity] = useState(null);
 
   const generateTests = async () => {
     if (!code.trim()) {
@@ -25,7 +24,6 @@ const useTestGeneration = () => {
     try {
       const data = await api.generateTests(code, framework, language);
       setTestCode(data.testCode);
-      setComplexity(data.metadata?.complexity);
       toast.success('Tests generated successfully!');
     } catch (error) {
       toast.error(error.message || 'Failed to generate tests');
@@ -63,14 +61,12 @@ const useTestGeneration = () => {
     setCode('');
     setTestCode('');
     setTestResults(null);
-    setComplexity(null);
   };
 
   const loadDemo = () => {
     setCode(DEMO_CODE);
     setTestCode('');
     setTestResults(null);
-    setComplexity(null);
     toast.info('Demo code loaded');
   };
 
@@ -82,7 +78,6 @@ const useTestGeneration = () => {
     isGenerating,
     isExecuting,
     testResults, setTestResults,
-    complexity, setComplexity,
     generateTests,
     executeTests,
     resetState,

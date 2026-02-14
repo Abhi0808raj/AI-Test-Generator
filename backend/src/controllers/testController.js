@@ -30,9 +30,6 @@ exports.generateTests = async (req, res, next) => {
       });
     }
 
-    // Analyze code complexity
-    const complexity = aiGenerator.analyzeComplexity(code);
-
     // Generate tests using AI
     const result = await aiGenerator.generateTests(code, framework, language);
 
@@ -49,10 +46,7 @@ exports.generateTests = async (req, res, next) => {
     res.json({
       success: true,
       testCode: result.testCode,
-      metadata: {
-        ...result.metadata,
-        complexity
-      }
+      metadata: result.metadata
     });
 
   } catch (error) {
@@ -130,45 +124,3 @@ exports.getFrameworks = (req, res) => {
   });
 };
 
-/**
- * Analyze code complexity
- */
-exports.analyzeCode = (req, res, next) => {
-  try {
-    const { code } = req.body;
-
-    if (!code) {
-      return res.status(400).json({
-        error: 'Code is required',
-        message: 'Please provide code to analyze'
-      });
-    }
-
-    const complexity = aiGenerator.analyzeComplexity(code);
-
-    res.json({
-      success: true,
-      analysis: {
-        ...complexity,
-        recommendation: getComplexityRecommendation(complexity.complexity)
-      }
-    });
-
-  } catch (error) {
-    console.error('Code analysis error:', error);
-    next(error);
-  }
-};
-
-/**
- * Get recommendation based on complexity score
- */
-function getComplexityRecommendation(score) {
-  if (score <= 3) {
-    return 'Simple function - basic test coverage should be sufficient';
-  } else if (score <= 6) {
-    return 'Moderate complexity - include edge case testing';
-  } else {
-    return 'Complex function - comprehensive testing with multiple scenarios recommended';
-  }
-}

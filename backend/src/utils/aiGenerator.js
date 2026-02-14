@@ -164,44 +164,6 @@ async generateWithGemini(prompt) {
 
     return { valid: true };
   }
-
-  /**
-   * Analyze code complexity to adjust test generation
-   */
-  analyzeComplexity(code) {
-    const lines = code.split('\n').filter(line => line.trim());
-    const hasLoops = /\b(for|while|forEach)\b/.test(code);
-    const hasConditionals = /\b(if|else|switch|case)\b/.test(code);
-    const hasTryCatch = /\b(try|catch|finally)\b/.test(code);
-    const hasAsync = /\b(async|await|Promise)\b/.test(code);
-
-    return {
-      lines: lines.length,
-      hasLoops,
-      hasConditionals,
-      hasTryCatch,
-      hasAsync,
-      complexity: this.calculateComplexityScore(
-        lines.length,
-        hasLoops,
-        hasConditionals,
-        hasTryCatch,
-        hasAsync
-      )
-    };
-  }
-
-  /**
-   * Calculate complexity score
-   */
-  calculateComplexityScore(lines, hasLoops, hasConditionals, hasTryCatch, hasAsync) {
-    let score = Math.min(lines / 10, 5); // Max 5 points for lines
-    if (hasLoops) score += 2;
-    if (hasConditionals) score += 2;
-    if (hasTryCatch) score += 1;
-    if (hasAsync) score += 2;
-    return Math.min(score, 10); // Max complexity of 10
-  }
 }
 
 module.exports = new AITestGenerator();

@@ -43,18 +43,4 @@ router.post(
  */
 router.get('/frameworks', testController.getFrameworks);
 
-/**
- * @route   POST /api/tests/analyze
- * @desc    Analyze code complexity
- * @access  Public
- */
-router.post(
-  '/analyze',
-  [
-    body('code').notEmpty().withMessage('Code is required'),
-    validate
-  ],
-  testController.analyzeCode
-);
-
 module.exports = router;

@@ -3,7 +3,6 @@ import Header from '../components/layout/Header';
 import Sidebar from '../components/layout/Sidebar';
 import CodeEditor from '../components/features/editor/CodeEditor';
 import EditorControls from '../components/features/editor/EditorControls';
-import ComplexityAnalysis from '../components/features/analysis/ComplexityAnalysis';
 import TestResults from '../components/features/analysis/TestResults';
 import useProjects from '../hooks/useProjects';
 import useTestGeneration from '../hooks/useTestGeneration';
@@ -30,7 +29,6 @@ const Dashboard = () => {
     isGenerating,
     isExecuting,
     testResults, setTestResults,
-    complexity, setComplexity,
     generateTests,
     executeTests,
     resetState,
@@ -45,7 +43,6 @@ const Dashboard = () => {
     setLanguage(project.language);
     setProjectName(project.name);
     setTestResults(null);
-    setComplexity(null); 
     toast.info(`Loaded project: ${project.name}`);
   };
 
@@ -126,7 +123,6 @@ const Dashboard = () => {
             saveProject={handleSaveProject}
           />
 
-          <ComplexityAnalysis complexity={complexity} />
 
           <CodeEditor
             title="Your Function"

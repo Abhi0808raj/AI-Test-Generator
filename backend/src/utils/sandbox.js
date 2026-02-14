@@ -2,8 +2,8 @@ const { VM } = require('vm2');
 
 class TestSandbox {
   constructor() {
-    this.timeout = 5000; // 5 second timeout
-    this.memoryLimit = 128; // 128MB memory limit
+    this.timeout = 5000;
+    this.memoryLimit = 128;
   }
 
   /**

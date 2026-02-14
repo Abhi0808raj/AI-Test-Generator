@@ -353,40 +353,6 @@ describe('Utility Functions', () => {
   const aiGenerator = require('../src/utils/aiGenerator');
   const sandbox = require('../src/utils/sandbox');
 
-  describe('Code Complexity Analyzer', () => {
-    it('should analyze simple code correctly', () => {
-      const code = 'function add(a, b) { return a + b; }';
-      const complexity = aiGenerator.analyzeComplexity(code);
-
-      expect(complexity).toHaveProperty('lines');
-      expect(complexity).toHaveProperty('hasLoops', false);
-      expect(complexity).toHaveProperty('hasConditionals', false);
-      expect(complexity).toHaveProperty('complexity');
-      expect(complexity.complexity).toBeLessThan(3);
-    });
-
-    it('should detect loops', () => {
-      const code = 'function loop() { for(let i = 0; i < 10; i++) {} }';
-      const complexity = aiGenerator.analyzeComplexity(code);
-
-      expect(complexity.hasLoops).toBe(true);
-    });
-
-    it('should detect conditionals', () => {
-      const code = 'function check(x) { if (x > 0) return true; return false; }';
-      const complexity = aiGenerator.analyzeComplexity(code);
-
-      expect(complexity.hasConditionals).toBe(true);
-    });
-
-    it('should detect async code', () => {
-      const code = 'async function fetch() { await getData(); }';
-      const complexity = aiGenerator.analyzeComplexity(code);
-
-      expect(complexity.hasAsync).toBe(true);
-    });
-  });
-
   describe('Code Validator', () => {
     it('should accept safe code', () => {
       const code = 'function safe() { return 42; }';

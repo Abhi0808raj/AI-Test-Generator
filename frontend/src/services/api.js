@@ -31,10 +31,6 @@ const apiService = {
     return await api.post('/tests/execute', { code, testCode, framework });
   },
 
-  analyzeCode: async (code) => {
-    return await api.post('/tests/analyze', { code });
-  },
-
   getFrameworks: async () => {
     return await api.get('/tests/frameworks');
   },
