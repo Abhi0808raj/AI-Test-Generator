@@ -324,6 +324,7 @@ body {
   background: #1e293b;
   border: 1px solid #334155;
   border-radius: 0.5rem;
+  max-height: 50vh;
 }
 
 .results-header {
@@ -396,6 +397,8 @@ body {
   line-height: 1.5;
   color: #e2e8f0;
   overflow-x: auto;
+  overflow-y: auto;
+  max-height: 40vh;
   white-space: pre-wrap;
 }
 
